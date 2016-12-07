@@ -51,11 +51,8 @@ p = figure(tools=toolset, plot_width=600, plot_height=600, min_border=10, min_bo
            title='IScatter')
 p.background_fill_color = "#fafafa"
 
-# configure so that no drag tools are active
 p.toolbar.active_drag = None
-# configure so that Bokeh chooses what (if any) scroll tool is active
 p.toolbar.active_scroll = None
-# configure so that a specific PolySelect tap tool is active
 p.toolbar.active_tap = None
 
 r = p.scatter(x, y, size=3, color="#3A5785", alpha=0.6, source=source)
@@ -64,7 +61,7 @@ slope, intercept, r_value, p_value, std_err = stats.linregress(x,y)
 xline = np.linspace(min(x),max(x),2)
 yline = intercept + slope * xline
 source_line = ColumnDataSource(data=dict(x=xline, y=yline))
-regr_eq = 'y = {:.2f} * x {:+.2f}'.format(slope, intercept)
+regr_eq = r'y = {:.2f} * x {:+.2f} | R2 = {:.3f}'.format(slope, intercept,r_value**2)
 
 p.line('x','y',source=source_line)
 
@@ -90,6 +87,6 @@ def update(attr, old, new):
     xline = np.linspace(min(x_regr),max(x_regr),2)
     yline = intercept + slope * xline
     source_line.data=dict(x=xline, y=yline)
-    regr_eq = 'y = {:.2f} * x {:+.2f}'.format(slope, intercept)
+    regr_eq = r'y = {:.2f} * x {:+.2f} | R2 = {:.3f}'.format(slope, intercept,r_value**2)
     citation.text = regr_eq
 r.data_source.on_change('selected', update)
