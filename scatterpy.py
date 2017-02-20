@@ -19,9 +19,9 @@ def modify_doc(doc):
     def update_src(attr, old, new):
         src_scatter.data = dict(x=[], y=[], descr=[])
         src_regrline.data = dict(x=[], y=[])
-        citation.text = 'Invalid Source'
 
         try:
+            citation.text = 'Loading...'
             if new == 0:
                 df = pd.read_excel('data.xlsx')
             elif new == 1:
@@ -37,6 +37,8 @@ def modify_doc(doc):
         except:
             if new == 2:
                 citation.text = 'Cleared'
+            else:
+                citation.text = 'Invalid Source'
 
     def update_sel(attr, old, new):
         # Selected Indices
